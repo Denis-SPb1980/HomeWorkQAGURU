@@ -2,6 +2,7 @@ package lesson3;
 
 import com.codeborne.selenide.Configuration;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static com.codeborne.selenide.Condition.text;
@@ -10,15 +11,21 @@ import static com.codeborne.selenide.Selenide.*;
 
 public class PracticeFormTests {
     @BeforeAll
-    static void beforeAll() {
+    static void setUp() {
         Configuration.browserSize = "1920x1080";
         Configuration.baseUrl = "https://demoqa.com";
         Configuration.pageLoadStrategy = "eager";
     }
 
+    @BeforeEach
+    void openPage() {
+        open("/automation-practice-form");
+        executeJavaScript("$('#fixedban').remove()");
+        executeJavaScript("$('footer').remove()");
+    }
+
     @Test
     public void fillRegistrationFormTest() {
-        open("/automation-practice-form");
         $("#firstName").setValue("Test");
         $("#lastName").setValue("Testov");
         $("#userEmail").setValue("test@mail.ru");
