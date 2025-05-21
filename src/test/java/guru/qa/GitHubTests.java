@@ -1,4 +1,4 @@
-package lesson5;
+package guru.qa;
 
 import com.codeborne.selenide.Configuration;
 import org.junit.jupiter.api.BeforeAll;
