@@ -1,18 +1,9 @@
 package guru.qa;
 
-import com.codeborne.selenide.Configuration;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import pages.AutomationPracticeFormPage;
 
-public class PracticeFormTests {
-    @BeforeAll
-    static void setUp() {
-        Configuration.browserSize = "1920x1080";
-        Configuration.baseUrl = "https://demoqa.com";
-        Configuration.pageLoadStrategy = "eager";
-    }
-
+public class PracticeFormTests extends TestBase{
     AutomationPracticeFormPage registrationPage = new AutomationPracticeFormPage();
 
     @Test
@@ -33,5 +24,24 @@ public class PracticeFormTests {
         registrationPage.checkResult("Picture", "picture.jpg");
         registrationPage.checkResult("Address", "Test Address");
         registrationPage.checkResult("State and City", "NCR Delhi");
+    }
+
+    @Test
+    public void fillRegistrationShortFormTest() {
+        registrationPage.openPage().setFirstName("Test").setLastName("Testov").setGender("Female")
+                .setPhoneNumber("8999000131").clickSubmit();
+
+        registrationPage.verifyFormSubmittedSuccessfully();
+        registrationPage.checkResult("Student Name", "Test Testov");
+        registrationPage.checkResult("Gender", "Female");
+        registrationPage.checkResult("Mobile", "8999000131");
+    }
+
+    @Test
+    public void registrationFormInvalidPhoneNumberTest() {
+        registrationPage.openPage().setFirstName("Test").setLastName("Testov").setGender("Female")
+                .setPhoneNumber("8999").clickSubmit();
+
+        registrationPage.checkUnsubmitedForm();
     }
 }

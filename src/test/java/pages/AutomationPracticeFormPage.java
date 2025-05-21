@@ -6,7 +6,7 @@ import pages.components.CalendarComponent;
 import pages.components.UploadPicture;
 import utils.ActionsHelper;
 
-import static com.codeborne.selenide.Condition.text;
+import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 
@@ -27,6 +27,7 @@ public class AutomationPracticeFormPage {
     private final SelenideElement submitButton = $("#submit");
     private final ElementsCollection checkResult = $$("table tr");
     private final SelenideElement formSubmitted = $("#example-modal-sizes-title-lg");
+    private final SelenideElement modal = $(".modal-content");
 
     CalendarComponent calendarComponent = new CalendarComponent();
     ActionsHelper actionsHelper = new ActionsHelper();
@@ -111,5 +112,9 @@ public class AutomationPracticeFormPage {
 
     public void verifyFormSubmittedSuccessfully(){
         formSubmitted.shouldHave(text("Thanks for submitting the form"));
+    }
+
+    public void checkUnsubmitedForm(){
+        modal.shouldNotBe(visible);
     }
 }
