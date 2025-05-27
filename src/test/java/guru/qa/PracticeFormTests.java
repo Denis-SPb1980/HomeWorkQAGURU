@@ -2,44 +2,62 @@ package guru.qa;
 
 import org.junit.jupiter.api.Test;
 import pages.AutomationPracticeFormPage;
+import utils.TestData;
 
 public class PracticeFormTests extends TestBase{
     AutomationPracticeFormPage registrationPage = new AutomationPracticeFormPage();
+    TestData testData = new TestData();
 
     @Test
     public void fillRegistrationFormTest() {
-        registrationPage.openPage().setFirstName("Test").setLastName("Testov").setEmail("test@mail.ru").setGender("Male")
-                        .setPhoneNumber("8999000131").setDateOfBirth("15", "May", "1993").setSubjects("Computer Science")
-                        .setHobbies("Sports").uploadProfile("picture.jpg").setCurrentAddress("Test Address")
-                        .setState("NCR").setCity("Delhi").clickSubmit();
+        registrationPage.openPage()
+                .setFirstName(testData.firstName)
+                .setLastName(testData.lastName)
+                .setEmail(testData.email)
+                .setGender(testData.gender)
+                .setPhoneNumber(testData.phoneNumber)
+                .setDateOfBirth(testData.dayOfBirth, testData.monthOfBirth, testData.yearOfBirth)
+                .setSubjects(testData.subject)
+                .setHobbies(testData.hobby)
+                .uploadProfile(testData.picture)
+                .setCurrentAddress(testData.currentAddress)
+                .setState(testData.state)
+                .setCity(testData.city).clickSubmit();
 
         registrationPage.verifyFormSubmittedSuccessfully();
-        registrationPage.checkResult("Student Name", "Test Testov");
-        registrationPage.checkResult("Student Email", "test@mail.ru");
-        registrationPage.checkResult("Gender", "Male");
-        registrationPage.checkResult("Mobile", "8999000131");
-        registrationPage.checkResult("Date of Birth", "15 May,1993");
-        registrationPage.checkResult("Subjects", "Computer Science");
-        registrationPage.checkResult("Hobbies", "Sports");
-        registrationPage.checkResult("Picture", "picture.jpg");
-        registrationPage.checkResult("Address", "Test Address");
-        registrationPage.checkResult("State and City", "NCR Delhi");
+        registrationPage.checkResult("Student Name", testData.firstName +" "+ testData.lastName);
+        registrationPage.checkResult("Student Email", testData.email);
+        registrationPage.checkResult("Gender", testData.gender);
+        registrationPage.checkResult("Mobile", testData.phoneNumber);
+        registrationPage.checkResult("Date of Birth", testData.dayOfBirth +" "+ testData.monthOfBirth +","+ testData.yearOfBirth);
+        registrationPage.checkResult("Subjects", testData.subject);
+        registrationPage.checkResult("Hobbies", testData.hobby);
+        registrationPage.checkResult("Picture", testData.picture);
+        registrationPage.checkResult("Address", testData.currentAddress);
+        registrationPage.checkResult("State and City",  testData.state +" "+ testData.city);
     }
 
     @Test
     public void fillRegistrationShortFormTest() {
-        registrationPage.openPage().setFirstName("Test").setLastName("Testov").setGender("Female")
-                .setPhoneNumber("8999000131").clickSubmit();
+        registrationPage.openPage()
+                .setFirstName(testData.firstName)
+                .setLastName(testData.lastName)
+                .setGender(testData.gender)
+                .setPhoneNumber(testData.phoneNumber)
+                .clickSubmit();
 
         registrationPage.verifyFormSubmittedSuccessfully();
-        registrationPage.checkResult("Student Name", "Test Testov");
-        registrationPage.checkResult("Gender", "Female");
-        registrationPage.checkResult("Mobile", "8999000131");
+        registrationPage.checkResult("Student Name", testData.firstName +" "+ testData.lastName);
+        registrationPage.checkResult("Gender", testData.gender);
+        registrationPage.checkResult("Mobile", testData.phoneNumber);
     }
 
     @Test
     public void registrationFormInvalidPhoneNumberTest() {
-        registrationPage.openPage().setFirstName("Test").setLastName("Testov").setGender("Female")
+        registrationPage.openPage()
+                .setFirstName(testData.firstName)
+                .setLastName(testData.lastName)
+                .setGender(testData.gender)
                 .setPhoneNumber("8999").clickSubmit();
 
         registrationPage.checkUnsubmitedForm();
