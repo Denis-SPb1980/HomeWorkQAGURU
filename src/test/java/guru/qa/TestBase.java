@@ -19,7 +19,7 @@ public class TestBase {
             String selenoidHost = System.getProperty("selenoid_host",  "selenoid.autotests.cloud");
             String selenoidLogin = System.getProperty("selenoid_login", "user1");
             String selenoidPassword = System.getProperty("selenoid_password", "1234");
-            String browser = System.getProperty("browser", "chrome");
+            String browser = System.getProperty("browser");
             String browserVersion = System.getProperty("browserVersion", "127.0");
             String screenResolution = System.getProperty("screenResolution", "1920x1080");
 
