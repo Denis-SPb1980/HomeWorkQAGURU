@@ -91,13 +91,13 @@ public class AutomationPracticeFormPage {
     }
 
     public AutomationPracticeFormPage setState(String state) {
-        stateSelect.click();
+        stateSelect.scrollIntoView(true).click();
         stateSelectInput.setValue(state).pressEnter();
         return this;
     }
 
     public AutomationPracticeFormPage setCity(String city) {
-        citySelect.click();
+        citySelect.scrollIntoView(true).click();;
         citySelectInput.setValue(city).pressEnter();
         return this;
     }
