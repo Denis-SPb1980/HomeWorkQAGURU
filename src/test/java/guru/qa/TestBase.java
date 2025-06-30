@@ -16,19 +16,17 @@ public class TestBase {
     @BeforeAll
     static void setUp() {
         step("Открытие страницы", () -> {
-            String selenoidHost = System.getProperty("selenoidHost",  "selenoid.autotests.cloud");
-            String selenoidLogin = System.getProperty("selenoidLogin", "user1");
-            String selenoidPassword = System.getProperty("selenoidPassword", "1234");
-            String browser = System.getProperty("browser", "chrome");
-            String browserVersion = System.getProperty("browserVersion", "127.0");
-            String screenResolution = System.getProperty("screenResolution", "1920x1080");
-
-            Configuration.browserSize = screenResolution;
+            Configuration.browser = System.getProperty("browser", "chrome");
+            Configuration.browserVersion = System.getProperty("browserVersion", "127.0");
+            Configuration.browserSize = System.getProperty("screenResolution", "1920x1080");
             Configuration.baseUrl = "https://demoqa.com";
             Configuration.pageLoadStrategy = "eager";
-            Configuration.remote = String.format("https://%s:%s@%s/wd/hub", selenoidLogin, selenoidPassword, selenoidHost);
-            Configuration.browser = browser;
-            Configuration.browserVersion = browserVersion;
+            Configuration.remote = String.format(
+                    "https://%s:%s@%s/wd/hub",
+                    System.getProperty("selenoidLogin", "user1"),
+                    System.getProperty("selenoidPassword", "1234"),
+                    System.getProperty("selenoidHost",  "selenoid.autotests.cloud")
+            );
 
             SelenideLogger.addListener("allure", new AllureSelenide());
 
